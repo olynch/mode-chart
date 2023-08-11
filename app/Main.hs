@@ -1,6 +1,6 @@
 module Main where
 
-import Diagrams.Backend.SVG.CmdLine
+import Diagrams.Backend.Cairo.CmdLine
 import Diagrams.Prelude
 
 import Data.Colour.Palette.BrewerSet
@@ -120,13 +120,9 @@ example = (chart <> labels) # lw 0.1
     chart :: Diagram B
     chart = mconcat $ mkRing <$> zip colorRows [0..]
     labels :: Diagram B
-    labels = dividedRing (radius) (radius - 6) (zip (repeat white) modes)
-    notes :: [String]
-    notes = rotateList 4 ["A", "B♭", "B", "C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "G♯"]
+    labels = dividedRing (radius) (radius - 8) (zip (repeat white) modes)
     modes :: [String]
     modes = reverse $ take 84 $ cycle ["Lydian", "Ionian", "Mixolydian", "Dorian", "Aeolian", "Phygian", "Locrian"]
-    notesRepeated :: [String]
-    notesRepeated = concat [replicate 7 note | note <- notes]
     columns :: [[String]]
     columns = [ note <$> modeNotes m n | n <- normalNotes, m <- reverse modeOrder ]
     rows :: [[String]]
@@ -134,9 +130,9 @@ example = (chart <> labels) # lw 0.1
     colorRows :: [[(Kolor, String)]]
     colorRows = [ (zip (rotateList k colors) row) | (k, row) <- zip [7, 5, 3, 1, 6, 4, 2] rows ]
     dr :: Double
-    dr = 1.5
+    dr = 2
     radius :: Double
-    radius = 30
+    radius = 35
     mkRing :: ([(Kolor, String)], Int) -> Diagram B
     mkRing (colorRow, i) = dividedRing (radius + (i'+1) * dr) (radius + i' * dr) colorRow
       where

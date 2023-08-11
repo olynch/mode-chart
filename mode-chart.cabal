@@ -71,6 +71,7 @@ executable mode-chart
       , diagrams-lib >= 1.4.1
       , diagrams-core >= 1.4.1
       , diagrams-svg >= 1.4.1
+      , diagrams-cairo >= 1.4.1
       , diagrams-contrib >= 1.4.1
       , palette
       , colour
